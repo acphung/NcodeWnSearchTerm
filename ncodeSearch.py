@@ -48,6 +48,12 @@ chapters = []
 
 # Get Chapter Links
 r = requests.get(wnURL)
+
+# Check for Invalid Web Novel
+if r.status_code == 404:
+    print('Invalid Web Novel or Couldn\'t be found')
+    sys.exit()
+    
 soup = bs.BeautifulSoup(r.content, 'lxml')
 for link in soup.find_all('a'):
     if chapterRegex.search(link.get('href')):
