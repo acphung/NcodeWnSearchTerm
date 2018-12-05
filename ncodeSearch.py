@@ -32,12 +32,9 @@ def term_in_chapter(url):
 # Get User Inputs
 print('Enter WebNovel ID:')
 wnID = input()
-# wnID = 'n8559fc'
-print('WebNovel ID is: ' + wnID)
 
 print('Enter Search Term:')
 searchTerm = input()
-print('Search Term is: ' + searchTerm)
 
 # Init Variables
 base = 'https://ncode.syosetu.com'
