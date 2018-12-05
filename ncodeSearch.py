@@ -11,6 +11,7 @@
 import bs4 as bs
 import requests
 import re
+import sys
 from multiprocessing.dummy import Pool as ThreadPool
 
 # Returns the url if the term is found within its text
