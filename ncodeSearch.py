@@ -33,12 +33,12 @@ def term_in_chapter(url):
 
 # Get User Inputs
 print('Enter WebNovel ID:')
-# wnID = input()
-wnID = 'n4014ds'
+wnID = input()
+print('WebNovel ID is: {}'.format(wnID))
 
 print('Enter Search Term:')
-# searchTerm = input()
-searchTerm = 'みゆ'
+searchTerm = input()
+print('Search Term is: {}'.format(searchTerm))
 
 # Init Variables
 base = 'https://ncode.syosetu.com'
@@ -67,3 +67,4 @@ print('Found Chapters: ')
 for chapter in results:
     if chapter:
         print(chapter)
+print('End')
