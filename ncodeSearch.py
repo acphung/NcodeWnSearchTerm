@@ -16,10 +16,10 @@ from multiprocessing.dummy import Pool as ThreadPool
 # Returns the url if the term is found within its text
 
 
-def term_in_chapter(url):
-    global searchTerm
+def term_in_chapter(args):
+    searchTerm, chapterURL = args
     pRegex = re.compile(r'L\d+')
-    r = requests.get(url, headers={'user-agent': 'Mozilla/5.0'})
+    r = requests.get(chapterURL, headers={'user-agent': 'Mozilla/5.0'})
     soup = bs.BeautifulSoup(r.content, 'lxml')
     for paragraph in soup.find_all('p'):
         if paragraph.br:
@@ -27,7 +27,7 @@ def term_in_chapter(url):
         if 'id' in paragraph.attrs:
             if pRegex.search(paragraph.get('id')):
                 if searchTerm in paragraph.text:
-                    return url
+                    return chapterURL
     return None
 
 
@@ -54,9 +54,12 @@ for link in soup.find_all('a'):
     if chapterRegex.search(link.get('href')):
         chapters.append(base + link.get('href'))
 
+# Generate args for threads
+args = ((searchTerm, x) for x in chapters)
+
 # Create Threads
 pool = ThreadPool(8)
-results = pool.map(term_in_chapter, chapters)
+results = pool.map(term_in_chapter, args)
 
 # Close Threads
 pool.close()
